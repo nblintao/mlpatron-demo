@@ -56,6 +56,14 @@ When you submit a Run on ML Patron, the platform:
 
 **In this demo**, the `Dockerfile` installs `mlflow`, `matplotlib`, etc. on top of the PyTorch base image. The GitHub Actions workflow (`.github/workflows/docker.yml`) automatically builds and pushes it to `ghcr.io/nblintao/mlpatron-demo`. This is just one way to host your image — any registry works.
 
-## Note
+## MLflow Integration
 
-Do **not** call `mlflow.set_tracking_uri()` in your code. ML Patron injects `MLFLOW_TRACKING_URI` via environment variable, and MLflow reads it automatically.
+ML Patron pre-creates an MLflow Run for each job and injects three environment variables:
+
+| Variable | You must do | You must not do |
+|---|---|---|
+| `MLFLOW_TRACKING_URI` | Nothing | `mlflow.set_tracking_uri(...)` |
+| `MLFLOW_EXPERIMENT_ID` | Nothing | `mlflow.set_experiment(...)` |
+| `MLFLOW_RUN_ID` | `mlflow.start_run(run_id=os.environ.get("MLFLOW_RUN_ID"))` | `mlflow.start_run()` with a different or no `run_id` |
+
+This is the only way to link your metrics with ML Patron. The same code works locally — when `MLFLOW_RUN_ID` is unset, `start_run()` creates a new run as usual.

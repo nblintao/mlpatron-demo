@@ -170,7 +170,7 @@ def main():
     # This automatically logs parameters, metrics, and model
     mlflow.pytorch.autolog(log_models=False)  # We'll log model manually for demo
 
-    with mlflow.start_run():
+    with mlflow.start_run(run_id=os.environ.get("MLFLOW_RUN_ID")):
         # Log additional parameters manually (autolog captures some automatically)
         mlflow.log_params({
             "epochs": args.epochs,
