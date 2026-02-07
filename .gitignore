@@ -1,0 +1,28 @@
+# Data
+data/
+
+# Artifacts
+artifacts/
+mlruns/
+.mlflow/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude
+CLAUDE.md

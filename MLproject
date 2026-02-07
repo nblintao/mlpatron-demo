@@ -1,0 +1,13 @@
+name: mlpatron-demo
+
+docker_env:
+  image: ghcr.io/nblintao/mlpatron-demo:latest
+
+entry_points:
+  main:
+    parameters:
+      epochs: {type: int, default: 10}
+      lr: {type: float, default: 0.01}
+      batch_size: {type: int, default: 64}
+      hidden_size: {type: int, default: 128}
+    command: "python train.py --epochs {epochs} --lr {lr} --batch_size {batch_size} --hidden_size {hidden_size}"
